@@ -21,9 +21,9 @@ public class ConsumerTask implements Runnable {
 
     private Semaphore semaphore;
 
-    public ConsumerTask(JedisPool jedisPool, Semaphore semaphore,String userName) {
+    public ConsumerTask(JedisPool jedisPool, Semaphore semaphore, String userName) {
         this.jedisPool = jedisPool;
-        this.semaphore=semaphore;
+        this.semaphore = semaphore;
         this.userName = userName;
     }
 
