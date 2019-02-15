@@ -25,10 +25,10 @@ public class ConsumerTask implements Runnable {
 
     @Override
     public void run() {
-        start(3);
+        startRun(3);
     }
 
-    private void start(int retry) {
+    private void startRun(int retry) {
         if (retry <= 1) {
             System.out.println(userName + "---再次抢购失败,重试" + (4 - retry) + "次重试");
             return;
@@ -48,14 +48,14 @@ public class ConsumerTask implements Runnable {
                 tx.decr(sale_Num);
                 //提交事务，如果数量发生了改动 则会返回null
                 List<Object> list = tx.exec();
-                while (list == null || list.size() == 0) {
+                if (list == null || list.size() == 0) {
                     System.out.println(userName + "抢购失败再次,重试,第" + (4 - retry) + "次重试");
-                    start(retry);
+                    startRun(--retry);
+                } else {
+                    for (Object success : list) {
+                        System.out.println(userName + "(" + success.toString() + ")商品抢购成功,当前抢购成功的人数是：" + (1 - (saleNum - 100)));
+                    }
                 }
-                for (Object success : list) {
-                    System.out.println(userName + "(" + success.toString() + ")商品抢购成功,当前抢购成功的人数是：" + (1 - (saleNum - 100)));
-                }
-
             } else {
                 System.out.println(userName + "商品已经被抢完了");
             }
