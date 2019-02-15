@@ -5,6 +5,8 @@ import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
+import java.util.concurrent.Semaphore;
+
 /**
  * 并发计数器
  * <p>
@@ -31,12 +33,12 @@ public class PromotionSalesService {
         jedis.set(ConsumerTask.sale_Num, store + "");
         jedis.close();
 
-        System.out.println(jedisPool.getMaxBorrowWaitTimeMillis());
-        for (int i = 0; i < 100; i++) {
+        //这里在模拟外部设置最大的并发量，这里可以当做单机的最大并发用户
+        Semaphore semaphore = new Semaphore(3);
+        for (int i = 0; i < 1000; i++) {
             //创建1000个线程抢占消费
-            new Thread(new ConsumerTask(jedisPool, "userName_" + i)).start();
+            new Thread(new ConsumerTask(jedisPool, semaphore, "userName_" + i)).start();
         }
-
         try {
             //方便查询
             Thread.sleep(10000);

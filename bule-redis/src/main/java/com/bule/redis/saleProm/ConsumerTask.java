@@ -7,6 +7,7 @@ import redis.clients.jedis.exceptions.JedisConnectionException;
 import redis.clients.jedis.exceptions.JedisExhaustedPoolException;
 
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 /**
  * Created by lijianzhen1 on 2019/2/15.
@@ -18,14 +19,24 @@ public class ConsumerTask implements Runnable {
 
     private String userName;
 
-    public ConsumerTask(JedisPool jedisPool, String userName) {
+    private Semaphore semaphore;
+
+    public ConsumerTask(JedisPool jedisPool, Semaphore semaphore,String userName) {
         this.jedisPool = jedisPool;
+        this.semaphore=semaphore;
         this.userName = userName;
     }
 
     @Override
     public void run() {
-        startRun(3);
+        try {
+            semaphore.acquire();
+            startRun(3);
+            semaphore.release();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void startRun(int retry) {
