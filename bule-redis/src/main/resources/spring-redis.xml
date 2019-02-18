@@ -84,6 +84,7 @@
     <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
         <constructor-arg index="0" ref="poolConfig"/>
         <constructor-arg index="1">
+            <!--默认MurmurHash算法，可以自定义，或者使用hash一致性算法-->
             <list>
                 <ref bean="jedisShardInfo0"/>
                 <ref bean="jedisShardInfo1"/>

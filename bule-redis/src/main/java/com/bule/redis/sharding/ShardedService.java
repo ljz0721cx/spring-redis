@@ -10,6 +10,8 @@ import redis.clients.util.Hashing;
 import java.util.Random;
 
 /**
+ * 使用时候要注意，一般不会有碰撞
+ * 如果需要可以自己实现hash分片算法，hash一致性算法在抢占中不能使用。
  * Created by lijianzhen1 on 2019/2/18.
  */
 @Service
@@ -20,7 +22,7 @@ public class ShardedService {
 
 
     /**
-     * MurmurHash 的算法测试
+     * MurmurHash 的算法测试，
      */
     @Test
     public void TestmurmurHash() {
@@ -36,14 +38,10 @@ public class ShardedService {
     public void test() {
         ShardedJedis jedis = shardedJedisPool.getResource();
         for (int i = 0; i < 1000; i++) {
-            //jedis.set("sharded_info_" + i, String.valueOf(new Random().nextInt(1000)));
+            jedis.set("sharded_info_" + i, String.valueOf(new Random().nextInt(1000)));
         }
-
-        jedis.set("sharded_info_" + 101, String.valueOf(new Random().nextInt(1000)));
-        jedis.set("sharded_info_" + 1, String.valueOf(new Random().nextInt(1000)));
-        jedis.set("sharded_info_" + 2, String.valueOf(new Random().nextInt(1000)));
         for (int i = 0; i < 1000; i++) {
-            //jedis.del("sharded_info_" + i);
+            jedis.del("sharded_info_" + i);
         }
         jedis.close();
     }

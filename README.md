@@ -21,3 +21,17 @@ brew cask install rdm
 ## 直接安装 rdm
 已经下载好的文件 
 spring-redis/bule-redis/redis-desktop-manager-0.9.4.44.dmg
+
+
+# 实际设计使用
+生产消费代码
+/Users/lijianzhen1/cmyworkspace/spring-redis/bule-redis/src/main/java/com/bule/redis/pubSub
+
+库存抢占削流后代码
+/Users/lijianzhen1/cmyworkspace/spring-redis/bule-redis/src/main/java/com/bule/redis/saleProm
+
+分片使用的代码
+/Users/lijianzhen1/cmyworkspace/spring-redis/bule-redis/src/main/java/com/bule/redis/sharding
+
+分布式锁代码
+/Users/lijianzhen1/cmyworkspace/spring-redis/bule-redis/src/main/java/com/bule/redis/setnx
