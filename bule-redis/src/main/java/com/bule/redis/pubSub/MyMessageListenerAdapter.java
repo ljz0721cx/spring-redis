@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 public class MyMessageListenerAdapter extends MessageListenerAdapter {
 
     public MyMessageListenerAdapter() {
-        super(new PatternTopic("myTest"));
+        super(new LogisticsListener());
     }
+
+
 }

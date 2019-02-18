@@ -13,6 +13,6 @@ public class SmsListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] bytes) {
 
-        System.out.println("短信消息 " + message.toString());
+        System.out.println("短信消息 " +System.currentTimeMillis() + message.toString());
     }
 }

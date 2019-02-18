@@ -12,6 +12,6 @@ import org.springframework.stereotype.Service;
 public class LogisticsListener implements MessageListener {
     @Override
     public void onMessage(Message message, byte[] bytes) {
-        System.out.println("物流消息 " + message.toString());
+        System.out.println("物流消息 " + System.currentTimeMillis() + message.toString());
     }
 }

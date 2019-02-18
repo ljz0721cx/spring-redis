@@ -18,15 +18,21 @@ public class PbSendService {
     @Resource(name = "redisTemplate")
     private StringRedisTemplate stringRedisTemplate;
 
+    private int smsCount=1;
+    private int logCount=1;
 
     @Scheduled(fixedRate = 2000) //间隔2s 通过StringRedisTemplate对象向redis消息队列sms频道模拟发布消息
     public void sendSmsMessage(){
-        stringRedisTemplate.convertAndSend("sms","短信发送");
+        System.out.println("短信"+smsCount+"次通知开始 "+System.currentTimeMillis());
+        stringRedisTemplate.convertAndSend("sms","短信"+smsCount+"次收到通知");
+        smsCount++;
     }
 
     @Scheduled(fixedRate = 2000) //间隔2s 通过StringRedisTemplate对象向redis消息队列logistic频道模拟发布消息
     public void sendLogisticsMessage(){
-        stringRedisTemplate.convertAndSend("logistics","物流信息通知");
+        System.out.println("物流"+logCount+"次通知开始 "+System.currentTimeMillis());
+        stringRedisTemplate.convertAndSend("logistics","物流信息"+logCount+"次收到通知");
+        logCount++;
     }
 
 }
