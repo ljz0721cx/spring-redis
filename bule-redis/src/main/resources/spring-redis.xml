@@ -19,18 +19,7 @@
         <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
     </bean>
 
-   <!-- <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:host-name="${redis.host}"
-          p:port="${redis.port}"
-          p:password="${redis.pass}"
-          p:pool-config-ref="poolConfig" p:timeout="1000"/>
-
-    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
-        <property name="connectionFactory" ref="connectionFactory"/>
-    </bean>
--->
-
-    <!--单个的jedis池-->
+    <!--简单实用-->
     <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
         <constructor-arg ref="poolConfig" index="0"/>
         <constructor-arg value="${redis.host}" index="1"/>
@@ -40,4 +29,36 @@
     </bean>
 
 
+    <bean id="connectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
+          p:host-name="${redis.host}"
+          p:port="${redis.port}"
+          p:password="${redis.pass}"
+          p:pool-config-ref="poolConfig" p:timeout="1000"/>
+
+    <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
+        <property name="connectionFactory" ref="connectionFactory"/>
+    </bean>
+
+
+
+    <!--注册redis的pub/sub监听-->
+    <bean id="redisContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
+        <property name="connectionFactory" ref="connectionFactory"/>
+        <property name="messageListeners">
+            <map>
+                <!--短信通知监听-->
+                <entry key-ref="smsListener">
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="sms" />
+                    </bean>
+                </entry>
+                <!--物流信息监听-->
+                <entry key-ref="logisticsListener">
+                    <bean class="org.springframework.data.redis.listener.ChannelTopic">
+                        <constructor-arg value="logistics" />
+                    </bean>
+                </entry>
+            </map>
+        </property>
+    </bean>
 </beans>

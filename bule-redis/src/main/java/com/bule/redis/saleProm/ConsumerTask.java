@@ -4,7 +4,6 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.Transaction;
 import redis.clients.jedis.exceptions.JedisConnectionException;
-import redis.clients.jedis.exceptions.JedisExhaustedPoolException;
 
 import java.util.List;
 import java.util.concurrent.Semaphore;
@@ -71,7 +70,7 @@ public class ConsumerTask implements Runnable {
                 System.out.println(userName + "商品已经被抢完了");
             }
             resource.close();
-        } catch (JedisConnectionException | JedisExhaustedPoolException e) {
+        } catch (JedisConnectionException e) {
             System.out.println(userName + "没有获取到连接或者连接超时，适当调整大maxWaitMillis，正常则忽略" + e);
         } finally {
             if (resource != null)

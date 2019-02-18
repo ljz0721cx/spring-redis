@@ -11,7 +11,7 @@ import redis.clients.jedis.JedisPool;
 /**
  * Created by lijianzhen1 on 2019/2/15.
  */
-@ContextConfiguration("classpath:spring-config.xml")
+@ContextConfiguration({"classpath:spring-config.xml"})
 @RunWith(SpringJUnit4ClassRunner.class)
 public class TestRedis {
     @Autowired

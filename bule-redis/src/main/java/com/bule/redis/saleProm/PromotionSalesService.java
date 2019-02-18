@@ -34,7 +34,7 @@ public class PromotionSalesService {
         jedis.close();
 
         //这里在模拟外部设置最大的并发量，这里可以当做单机的最大并发用户
-        Semaphore semaphore = new Semaphore(3);
+        Semaphore semaphore = new Semaphore(4);
         for (int i = 0; i < 1000; i++) {
             //创建1000个线程抢占消费
             new Thread(new ConsumerTask(jedisPool, semaphore, "userName_" + i)).start();

@@ -1,0 +1,32 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+      http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+
+
+      http://www.springframework.org/schema/context
+      http://www.springframework.org/schema/context/spring-context-4.0.xsd">
+
+    <!-- scanner redis properties  -->
+    <context:property-placeholder location="redis.properties"/>
+
+    <!--<bean id="poolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="${redis.maxIdle}"/>
+        <property name="maxTotal" value="${redis.maxTotal}"/>
+        <property name="maxWaitMillis" value="${redis.maxWaitMillis}"/>
+        <property name="testOnBorrow" value="${redis.testOnBorrow}"/>
+    </bean>
+
+    &lt;!&ndash;单个的jedis池&ndash;&gt;
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg ref="poolConfig" index="0"/>
+        <constructor-arg value="${redis.host}" index="1"/>
+        <constructor-arg value="${redis.port}" index="2"/>
+        <constructor-arg value="10000" index="3"/>
+        <constructor-arg value="${redis.pass}" index="4"/>
+    </bean>
+-->
+
+</beans>
