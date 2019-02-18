@@ -12,7 +12,8 @@ import javax.annotation.Resource;
  * Created by lijianzhen1 on 2019/2/18.
  */
 @Component
-@EnableScheduling
+//需要测试开启下边的定时任务
+//@EnableScheduling
 public class PbSendService {
     @Autowired
     @Resource(name = "redisTemplate")

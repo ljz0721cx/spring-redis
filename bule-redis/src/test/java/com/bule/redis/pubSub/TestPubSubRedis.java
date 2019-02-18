@@ -1,4 +1,4 @@
-package com.bule.redis;
+package com.bule.redis.pubSub;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
