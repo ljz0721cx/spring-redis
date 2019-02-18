@@ -85,12 +85,13 @@ public class SetNxService {
      * 使用setnx+getset方式保证
      *
      * 这个就完美的可以控制并发和锁的机制了
+     * 具体还有没有更好的方式，希望大家积极提供
      *
      * @param user
      */
     public void redislock2(String user) {
         Jedis redis = jedisPool.getResource();
-        //如果返回0说明没有获得锁，等待
+        //如果返回0说明没有获得锁，等待，这里设置的时间依赖于锁的业务处理时间，必须大于等于，要不会有问题
         while (redis.setnx(token, String.valueOf((System.currentTimeMillis() + 1000L))) == 0) {
             try {
                 String to = redis.get(token);
