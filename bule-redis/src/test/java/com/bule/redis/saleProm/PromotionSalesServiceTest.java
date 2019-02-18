@@ -16,5 +16,7 @@ public class PromotionSalesServiceTest extends BaseTest {
     @Test
     public void testpromot(){
         promotionSalesService.promot(100);
+
+        System.out.println(1550475196075L-1550475193352L);
     }
 }

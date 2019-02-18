@@ -10,4 +10,5 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @ContextConfiguration("classpath:spring-config.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public abstract class BaseTest {
+
 }

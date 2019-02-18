@@ -63,7 +63,7 @@ public class ConsumerTask implements Runnable {
                     startRun(--retry);
                 } else {
                     for (Object success : list) {
-                        System.out.println(userName + "(" + success.toString() + ")商品抢购成功,当前抢购成功的人数是：" + (1 - (saleNum - 100)));
+                        System.out.println(userName +System.currentTimeMillis()+ "(" + success.toString() + ")商品抢购成功,当前抢购成功的人数是：" + (1 - (saleNum - 100)));
                     }
                 }
             } else {

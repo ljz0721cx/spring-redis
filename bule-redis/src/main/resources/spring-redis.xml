@@ -40,7 +40,6 @@
     </bean>
 
 
-
     <!--注册redis的pub/sub监听-->
     <bean id="redisContainer" class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
         <property name="connectionFactory" ref="connectionFactory"/>
@@ -49,16 +48,46 @@
                 <!--短信通知监听-->
                 <entry key-ref="smsListener">
                     <bean class="org.springframework.data.redis.listener.ChannelTopic">
-                        <constructor-arg value="sms" />
+                        <constructor-arg value="sms"/>
                     </bean>
                 </entry>
                 <!--物流信息监听-->
                 <entry key-ref="logisticsListener">
                     <bean class="org.springframework.data.redis.listener.ChannelTopic">
-                        <constructor-arg value="logistics" />
+                        <constructor-arg value="logistics"/>
                     </bean>
                 </entry>
             </map>
         </property>
+    </bean>
+
+
+    <!-- jedis uri信息配置 -->
+    <bean id="uri" class="java.net.URI">
+        <!-- jedis URI配置   redis://redis:password@ip:port/database   -->
+        <constructor-arg index="0" value="${redis.uri1}"/>
+    </bean>
+    <bean id="uri1" class="java.net.URI">
+        <!-- jedis URI配置   redis://redis:password@ip:port/database   -->
+        <constructor-arg index="0" value="${redis.uri2}"/>
+    </bean>
+
+    <bean id="jedisShardInfo0" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" ref="uri"/>
+    </bean>
+    <bean id="jedisShardInfo1" class="redis.clients.jedis.JedisShardInfo">
+        <constructor-arg index="0" ref="uri1"/>
+    </bean>
+
+
+    <!-- jedis shard pool配置，提供给程序注入使用 -->
+    <bean id="shardedJedisPool" class="redis.clients.jedis.ShardedJedisPool">
+        <constructor-arg index="0" ref="poolConfig"/>
+        <constructor-arg index="1">
+            <list>
+                <ref bean="jedisShardInfo0"/>
+                <ref bean="jedisShardInfo1"/>
+            </list>
+        </constructor-arg>
     </bean>
 </beans>
