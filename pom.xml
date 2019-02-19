@@ -16,6 +16,7 @@
 
     <modules>
         <module>bule-redis</module>
+        <module>bule-redis-simple</module>
     </modules>
     <dependencyManagement>
         <dependencies>
