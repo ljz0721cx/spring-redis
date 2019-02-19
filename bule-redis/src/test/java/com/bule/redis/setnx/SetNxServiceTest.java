@@ -43,6 +43,8 @@ class Cuser implements Runnable {
     public void run() {
         //问题代码  setNxService.redislock("user_" + thCount);
         //问题代码  setNxService.redislock1("user_" + thCount);
-        setNxService.redislock2("user_" + thCount);
+        //问题代码  setNxService.redislock2("user_" + thCount);
+        //正确代码。
+        setNxService.redislock3("user_" + thCount);
     }
 }
