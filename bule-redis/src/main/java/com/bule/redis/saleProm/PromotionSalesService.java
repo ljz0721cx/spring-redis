@@ -24,6 +24,7 @@ public class PromotionSalesService {
 
     /**
      * 启用多个线程模拟去抢占
+     * 使用Transaction会严重影响性能，但是在多个命令时候很有必要
      *
      * @param store 设置促销的商品数量
      */
@@ -45,8 +46,30 @@ public class PromotionSalesService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-
     }
 
 
+    /**
+     * 使用多个线程模拟抢占库存实现2
+     *
+     * @param store
+     */
+    public void promot1(int store) {
+        //先放入对应的商品数量
+        Jedis jedis = jedisPool.getResource();
+        jedis.flushDB();
+        jedis.close();
+
+
+        for (int i = 0; i < 100; i++) {
+            //创建1000个线程抢占消费
+            new Thread(new IncrAndDecrTask(jedisPool, "userName_" + i)).start();
+        }
+        try {
+            //方便查询
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
 }

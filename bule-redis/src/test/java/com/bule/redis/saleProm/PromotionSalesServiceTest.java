@@ -15,8 +15,9 @@ public class PromotionSalesServiceTest extends BaseTest {
 
     @Test
     public void testpromot(){
-        promotionSalesService.promot(100);
-
-        System.out.println(1550475196075L-1550475193352L);
+        //第一种实现方式
+        //promotionSalesService.promot(100);
+        //第二种实现方式
+        promotionSalesService.promot1(100);
     }
 }
