@@ -150,12 +150,24 @@ public class MyLinkedList<T> {
         myLinkedList.add("1");
         myLinkedList.add("2");
         myLinkedList.add("3");
+        Iterator<String> it = myLinkedList.iterator();
 
+        System.out.println("转置前");
+        while (it.hasNext()) {
+            String s = it.next();
+            System.out.print(s);
+            System.out.print(",");
+        }
+        System.out.println("\n");
         myLinkedList.reverse();
-        Iterator<String> it=myLinkedList.iterator();
-        while (it.hasNext()){
-            String s=it.next();
-            System.out.println(s);
+        it = myLinkedList.iterator();
+
+
+        System.out.println("转职后");
+        while (it.hasNext()) {
+            String s = it.next();
+            System.out.print(s);
+            System.out.print(",");
         }
     }
 }

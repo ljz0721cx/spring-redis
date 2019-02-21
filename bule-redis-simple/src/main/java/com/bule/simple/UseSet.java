@@ -8,7 +8,9 @@ import redis.clients.jedis.Jedis;
 public class UseSet {
     public static void main(String[] args) {
 
-        testSet();
+        //testSet();
+
+
 
     }
 
