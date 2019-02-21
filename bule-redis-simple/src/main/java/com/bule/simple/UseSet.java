@@ -2,6 +2,8 @@ package com.bule.simple;
 
 import redis.clients.jedis.Jedis;
 
+import java.util.Set;
+
 /**
  * Created by lijianzhen1 on 2019/2/20.
  */
@@ -10,8 +12,9 @@ public class UseSet {
 
         //testSet();
 
-        testSortSet();
+        //testSortSet();
 
+        setCollection();
     }
 
 
@@ -40,7 +43,37 @@ public class UseSet {
         System.out.println(jedis.srandmember("person"));
         //返回集合的元素个数
         System.out.println(jedis.scard("person"));
+
     }
+
+    /**
+     * 交集，并集，差集等
+     */
+    public static void setCollection() {
+        Jedis jedis = JedisPoolTest.getJedis();
+        //book表用来存储book书名
+        jedis.set("book:1:name", "java program");
+        jedis.set("book:2:name", "solr product");
+        jedis.set("book:3:name", "ES program");
+        System.out.println(jedis.get("book:1:name"));
+
+        //tag表使用集合来存储数据，因为集合擅长求交集、并集
+        jedis.sadd("tag:java", "1");
+        jedis.sadd("tag:java", "2");
+        jedis.sadd("tag:search", "3");
+        jedis.sadd("tag:server", "2");
+
+        //获得既属于java有属于cluter的书
+        Set<String> sinter = jedis.sinter("tag:java", "tag:server");
+        System.out.println(sinter);
+        //属于java，但不属于server的书
+        Set<String> sdiff = jedis.sdiff("tag:java", "tag:server");
+        System.out.println(sdiff);
+        //属于java和属于web的书的合集
+        Set<String> sunion = jedis.sunion("tag:java", "tag:server");
+        System.out.println(sunion);
+    }
+
 
     /**
      * sorted set 是有序集合,它在 set 的基础上增加了一个顺序属性,这一属性在添加修改元素的时候可以指定,每次指定后,会自动重新按新的值调整顺序。
