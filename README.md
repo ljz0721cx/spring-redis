@@ -35,3 +35,6 @@ spring-redis/bule-redis/redis-desktop-manager-0.9.4.44.dmg
 
 分布式锁代码
 /Users/lijianzhen1/cmyworkspace/spring-redis/bule-redis/src/main/java/com/bule/redis/setnx
+
+
+https://www.cnblogs.com/gxyandwmm/p/9589130.html
