@@ -13,6 +13,8 @@ import java.util.List;
  * Redis允许使用二进制数据的Key(binary keys) 和二进制数据的Value(binary values)。Bitmap就是二进制数据的value。Redis的 setbit(key, offset, value)操作对指定的key的value的指定偏移(offset)的位置1或0，时间复杂度是O(1)。
  * 一个简单的例子：日活跃用户
  * 为了统计今日登录的用户数，我们建立了一个bitmap,每一位标识一个用户ID。当某个用户访问我们的网页或执行了某个操作，就在bitmap中把标识此用户的位置为1。在Redis中获取此bitmap的key值是通过用户执行操作的类型和时间戳获得的。
+ *
+ * 统计一亿人每天的登录情况，用一亿bit，约1200WByte，约10M的字符就能表示（因为bitop命令的返回值是保存到 time中的字符串的长度（以字节byte为单位），和输入 key 中最长的字符串长度相等。即1亿除以8bit=1250万Byte）；
  * <p>
  * Created by lijianzhen1 on 2019/2/26.
  */
